@@ -1,0 +1,48 @@
+<article class="task view card" role="article">
+    <div class="card-header">{{ title }}</div>
+    <div class="card-body">
+        <div  *ngIf="!dataLoaded" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <form *ngIf="dataLoaded"  [formGroup]="taskForm">
+            <div class="form-group" *ngIf="type === 'read'" >
+              <label for="id">ID</label>
+              <input type="number" name="id" class="form-control" formControlName="id" placeholder="Task Id">
+            </div>
+            <div class="form-group">
+              <label for="task">Task</label>
+              <input type="text" name="task" class="form-control" formControlName="task" placeholder="Task Name">
+              <small *ngIf="taskForm.controls['task'].invalid && (taskForm.controls['task'].dirty || taskForm.controls['task'].touched)" class="text-danger">Task is required</small>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" name="description" class="form-control" formControlName="description" placeholder="Task Description">
+              <small *ngIf="taskForm.controls['description'].invalid && (taskForm.controls['description'].dirty || taskForm.controls['description'].touched)"  class="text-danger">Description is required</small>
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select class="form-control" name="status" formControlName="status">
+                <option></option>
+                <option [ngValue]="0">0</option>
+                <option [ngValue]="1">1</option>
+              </select>
+              <small *ngIf="taskForm.controls['status'].invalid && (taskForm.controls['status'].dirty || taskForm.controls['status'].touched)" class="text-danger">Status is required</small>
+            </div>
+            <div *ngIf="type === 'read'"  class="form-group card-btns">
+                <button (click)="editTask()" class="btn btn-info">Edit</button>
+                <button (click)="deleteTask()" class="btn btn-danger">Delete</button>
+                <button (click)="goBack()" class="btn">Cancel</button>
+            </div>
+            <div *ngIf="type === 'update'" class="form-group card-btns">
+              <button type="button" (click)="updateTask()" [ngClass]="{'btn': true, 'btn-info': taskForm.valid, 'btn-secondary': !taskForm.valid}" [disabled]="!taskForm.valid">Update</button>
+              <button (click)="goBack()" class="btn">Cancel</button>
+            </div>
+            <div *ngIf="type === 'create'"  class="form-group card-btns">
+                <button type="button" (click)="createTask()" [ngClass]="{'btn': true, 'btn-info': taskForm.valid, 'btn-secondary': !taskForm.valid}" [disabled]="!taskForm.valid">Create</button>
+                <button (click)="goBack()" class="btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</article>

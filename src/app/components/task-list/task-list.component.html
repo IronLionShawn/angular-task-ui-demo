@@ -1,0 +1,31 @@
+<article class="task-list view card">
+    <div class="card-header">{{ title }}</div>
+    <div class="card-body">
+        <div  *ngIf="!dataLoaded" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div *ngIf="dataLoaded"  class="table-responsive">
+            <table class="table table-striped">
+                <thead >
+                    <tr>
+                        <th *ngFor="let header of headers" scope="col" [sortable]="header.name" [class]="columnSize(headers.length)" (sort)="onSort($event)" >
+                            {{ header.title }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of sortedTasks" (click)="viewTask(task.id)">
+                        <!-- <td *ngFor="let prop of task | keyvalue : returnZero" [class]="columnSize(headers.length)" scope="row">{{ prop.value }}</td> -->
+                        <td [class]="columnSize(headers.length)" scope="row">{{ task.id }}</td>
+                        <td [class]="columnSize(headers.length)" scope="row">{{ task.task }}</td>
+                        <td [class]="columnSize(headers.length)" scope="row">{{ task.description }}</td>
+                        <td [class]="columnSize(headers.length)" scope="row">{{ task.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-info" [routerLink]="['/tasks/add']">Add</a>
+        </div>
+    </div>
+</article>

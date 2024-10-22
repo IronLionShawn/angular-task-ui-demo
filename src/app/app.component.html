@@ -1,0 +1,22 @@
+<div class="app">
+  <header >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">{{ title }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a  class="nav-item nav-link" *ngFor="let route of routes" [routerLink]='route.link'> {{ route.name }}</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="view-container container">
+    <router-outlet></router-outlet>
+    <ngb-alert #globalAlert *ngIf="alertObject.message" [type]="alertObject.type" (showAlert)="onAlertClose()" (closed)="onAlertClose()" >{{ alertObject.message }}</ngb-alert>
+  </section>
+</div>

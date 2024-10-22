@@ -1,0 +1,1 @@
+export type CrudRouteType = "create" | "read" | "update" | "delete";
